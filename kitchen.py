@@ -1,5 +1,5 @@
 class Quantity:
-    def __init__(self, amount, unit="g"):
+    def __init__(self, amount, unit):
         self.amount = amount
         self.unit = unit
 
