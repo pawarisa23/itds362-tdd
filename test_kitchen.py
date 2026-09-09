@@ -5,11 +5,14 @@
 # [x] การคูณต้องไม่เปลี่ยนค่าของอ็อบเจ็กต์เดิม
 # [x] ปริมาณสองค่าที่มีทั้งตัวเลขและหน่วยเท่ากันถือว่าเท่ากัน
 # [x] 1 oz ไม่เท่ากับ 1 g
-# [ ] 200 g + 300 g = 500 g
+# [x] 200 g + 300 g = 500 g
 # [ ] 200 g + 1 oz แปลงผลลัพธ์เป็นกรัมโดยใช้อัตราแปลงหน่วย
 # [ ] (200 g + 1 oz) x 2
 
 from kitchen import Converter, Quantity
+
+
+GRAMS_PER_OUNCE = 28
 
 
 def grams(amount):
@@ -18,6 +21,12 @@ def grams(amount):
 
 def ounces(amount):
     return Quantity(amount, "oz")
+
+
+def converter_with_rates():
+    converter = Converter()
+    converter.add_rate("oz", "g", GRAMS_PER_OUNCE)
+    return converter
 
 
 def test_multiplication():
@@ -49,3 +58,9 @@ def test_simple_addition():
     total = grams(200).plus(grams(300))
     converter = Converter()
     assert converter.reduce(total, "g") == grams(500)
+
+
+def test_mixed_unit_addition():
+    total = grams(200).plus(ounces(1))
+    converter = converter_with_rates()
+    assert converter.reduce(total, "g") == grams(200 + GRAMS_PER_OUNCE)
