@@ -6,7 +6,7 @@
 # [x] ปริมาณสองค่าที่มีทั้งตัวเลขและหน่วยเท่ากันถือว่าเท่ากัน
 # [x] 1 oz ไม่เท่ากับ 1 g
 # [x] 200 g + 300 g = 500 g
-# [ ] 200 g + 1 oz แปลงผลลัพธ์เป็นกรัมโดยใช้อัตราแปลงหน่วย
+# [x] 200 g + 1 oz แปลงผลลัพธ์เป็นกรัมโดยใช้อัตราแปลงหน่วย
 # [ ] (200 g + 1 oz) x 2
 
 from kitchen import Converter, Quantity
@@ -64,3 +64,9 @@ def test_mixed_unit_addition():
     total = grams(200).plus(ounces(1))
     converter = converter_with_rates()
     assert converter.reduce(total, "g") == grams(200 + GRAMS_PER_OUNCE)
+
+
+def test_scaling_a_mixed_unit_sum():
+    doubled = grams(200).plus(ounces(1)).times(2)
+    converter = converter_with_rates()
+    assert converter.reduce(doubled, "g") == grams((200 + GRAMS_PER_OUNCE) * 2)
