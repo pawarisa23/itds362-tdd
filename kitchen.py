@@ -7,13 +7,19 @@ class Quantity:
         return Quantity(self.amount * multiplier, self.unit)
 
     def plus(self, addend):
-        return Quantity(500, "g")
+        return Sum(self, addend)
 
     def __eq__(self, other):
         return self.amount == other.amount and self.unit == other.unit
 
     def __repr__(self):
         return f"Quantity({self.amount}, {self.unit!r})"
+
+
+class Sum:
+    def __init__(self, left, right):
+        self.left = left
+        self.right = right
 
 
 class Converter:
