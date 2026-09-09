@@ -1,8 +1,8 @@
 # รายการทดสอบ (test list)
 # ขีดฆ่าออกเมื่อเทสต์ของรายการนั้นผ่านแล้ว
 #
-# [ ] 200 g x 3 = 600 g
-# [ ] การคูณต้องไม่เปลี่ยนค่าของอ็อบเจ็กต์เดิม
+# [x] 200 g x 3 = 600 g
+# [x] การคูณต้องไม่เปลี่ยนค่าของอ็อบเจ็กต์เดิม
 # [ ] ปริมาณสองค่าที่มีทั้งตัวเลขและหน่วยเท่ากันถือว่าเท่ากัน
 # [ ] 1 oz ไม่เท่ากับ 1 g
 # [ ] 200 g + 300 g = 500 g
@@ -26,3 +26,7 @@ def test_multiplication_returns_a_new_quantity():
     flour = Quantity(200)
     assert flour.times(3).amount == 600
     assert flour.times(2).amount == 400
+
+
+def test_equality():
+    assert Quantity(200) == Quantity(200)
