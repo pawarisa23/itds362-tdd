@@ -9,6 +9,9 @@ class Quantity:
     def plus(self, addend):
         return Sum(self, addend)
 
+    def reduce(self, converter, unit):
+        return Quantity(self.amount, self.unit)
+
     def __eq__(self, other):
         return self.amount == other.amount and self.unit == other.unit
 
@@ -21,7 +24,11 @@ class Sum:
         self.left = left
         self.right = right
 
+    def reduce(self, converter, unit):
+        amount = self.left.amount + self.right.amount
+        return Quantity(amount, unit)
+
 
 class Converter:
     def reduce(self, source, unit):
-        return source
+        return source.reduce(self, unit)
