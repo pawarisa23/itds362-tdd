@@ -25,10 +25,16 @@ class Sum:
         self.left = left
         self.right = right
 
+    def times(self, multiplier):
+        return Sum(self.left.times(multiplier), self.right.times(multiplier))
+
     def reduce(self, converter, unit):
         amount = (self.left.reduce(converter, unit).amount
                   + self.right.reduce(converter, unit).amount)
         return Quantity(amount, unit)
+
+    def __repr__(self):
+        return f"Sum({self.left!r}, {self.right!r})"
 
 
 class Converter:
